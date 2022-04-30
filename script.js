@@ -1,5 +1,4 @@
 const btn = document.querySelector('.btn');
-const content = document.querySelector('.row');
 const thumb = document.querySelector('.thumb');
 const instruction = document.querySelector('.instruction');
 const source = document.querySelector('.source');
@@ -10,19 +9,20 @@ async function getMeal() {
 
   return data.meals[0];
 }
+const list = document.querySelector('.list');
 
 btn.addEventListener('click', async function () {
   const meal = await getMeal();
   const ing = getIngridients(meal);
 
   const video = await embedVideo(meal);
+  console.log(video);
+  console.log(footer(video));
 
-  thumb.innerHTML = thumbnail(meal, ing);
-  instruction.innerHTML = showInstructions(meal);
-  content.appendChild(thumb);
-  const list = document.querySelector('.list');
   const filIng = filterIngredients(meal, ing);
-  list.innerHTML = filIng;
+  thumb.innerHTML = thumbnail(meal, filIng);
+  instruction.innerHTML = showInstructions(meal);
+  // list.innerHTML = filIng;
   source.innerHTML = footer(video);
 });
 
@@ -32,10 +32,10 @@ function thumbnail(m, ing) {
   <img src="${m.strMealThumb}" alt="" />
   <p><strong>Category</strong>: ${m.strCategory}</p>
   <p><strong>Area</strong>: ${m.strArea}</p>
-  <h3>Ingredients :</h3>
-  
-  <ul class="list">
-  </ul>
+  <h2>Ingredients :</h2>
+  <ul class="list">${ing}</ul>
+
+
 
 
   
@@ -63,7 +63,6 @@ function filterIngredients(m, ing) {
 
 function showInstructions(m) {
   return `    
-
   <h2>${m.strMeal}</h2>
   <p class = 'inst'>${m.strInstructions}</p>
   </div>
@@ -79,7 +78,7 @@ async function embedVideo(m) {
 
 function footer(video) {
   return `  
-  <div class="col-md-6 video  my-5">
+  <div class="video">
   <h3 class = "text-center">Video Recipe</h3>
   ${video}
   </div>
