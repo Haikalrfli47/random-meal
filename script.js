@@ -16,13 +16,11 @@ btn.addEventListener('click', async function () {
   const ing = getIngridients(meal);
 
   const video = await embedVideo(meal);
-  console.log(video);
-  console.log(footer(video));
 
   const filIng = filterIngredients(meal, ing);
   thumb.innerHTML = thumbnail(meal, filIng);
   instruction.innerHTML = showInstructions(meal);
-  // list.innerHTML = filIng;
+
   source.innerHTML = footer(video);
 });
 
@@ -33,13 +31,7 @@ function thumbnail(m, ing) {
   <p><strong>Category</strong>: ${m.strCategory}</p>
   <p><strong>Area</strong>: ${m.strArea}</p>
   <h2>Ingredients :</h2>
-  <ul class="list">${ing}</ul>
-
-
-
-
-  
-  `;
+  <ul class="list">${ing}</ul> `;
 }
 
 function getIngridients(m) {
